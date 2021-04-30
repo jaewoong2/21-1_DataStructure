@@ -15,7 +15,7 @@ void bubbleSort(int *arr, const int &len) {
 
 void find_max_swap(int *arr, const int &end) {
     for (int i = 0; i < end; i++) {
-        if (arr[i] > arr[i + 1]) {
+        if (arr[i] < arr[i + 1]) {
             swap(arr[i], arr[i + 1]);
         }
     }

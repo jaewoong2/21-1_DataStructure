@@ -9,32 +9,32 @@
 
 void rpn() {
     Stack<double> stack;
-    double operator_one, operator_two;
+    double operand_one, operand_two;
     char word;
 
     while ((word = std::cin.peek()) != '\n') {
         if (isdigit(word)) {
-            std::cin >> operator_one;
-            stack.push(operator_one);
+            std::cin >> operand_one;
+            stack.push(operand_one);
         } else {
             std::cin >> word;
-            operator_two = stack.pop();
-            operator_one = stack.pop();
+            operand_two = stack.pop();
+            operand_one = stack.pop();
             switch (word) {
                 case '+':
-                    stack.push(operator_one + operator_two);
+                    stack.push(operand_one + operand_two);
                     break;
                 case '-':
-                    stack.push(operator_one - operator_two);
+                    stack.push(operand_one - operand_two);
                     break;
                 case '*':
-                    stack.push(operator_one * operator_two);
+                    stack.push(operand_one * operand_two);
                     break;
                 case '/':
-                    if (operator_two == 0) {
+                    if (operand_two == 0) {
                         std::cerr << "Division 0 is not allowed \n";
                     } else {
-                        stack.push(operator_one / operator_two);
+                        stack.push(operand_one / operand_two);
                     }
                     break;
                 default:

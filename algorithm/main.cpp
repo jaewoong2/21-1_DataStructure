@@ -17,7 +17,7 @@ int main() {
 //    }
 //    cout << endl;
 //
-////    selectionSort(arr, len); //선택정렬 호출
+//    selectionSort(arr, len); //선택정렬 호출
 //    bubbleSort(arr, len);
 //
 //    for(int i=0; i<len; i++){

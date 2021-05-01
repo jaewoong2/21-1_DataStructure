@@ -12,12 +12,15 @@ template <typename queueElementType>
 class Queue {
 public:
     Queue();
+    ~Queue() { };
     void enqueue(const queueElementType &elem);
     queueElementType dequeue();
     queueElementType front() const;
     bool isEmpty() const;
+    bool isFull() const;
 
 private:
+    int numberOfElement_;
     int front_;
     int last_;
     queueElementType elements[maxQueue];
@@ -33,31 +36,41 @@ template <typename queueElementType>
 Queue<queueElementType>::Queue() {
     front_ = 0;
     last_ = 0;
+    numberOfElement_ = 0;
 }
 
 template <typename queueElementType>
 void Queue<queueElementType>::enqueue(const queueElementType &elem) {
-    assert(nextPosition(last_) != front_);
+    assert(!isFull());
     last_ = nextPosition(last_);
+    numberOfElement_ += 1;
     elements[last_] = elem;
 }
 
 template <typename queueElementType>
 queueElementType Queue<queueElementType>::dequeue() {
-    assert(last_ != front_);
+    assert(!isEmpty());
     front_ = nextPosition(front_);
+    numberOfElement_ -= 1;
     return elements[front_];
 }
 
 template <typename queueElementType>
 queueElementType Queue<queueElementType>::front() const {
-    assert(front_ != last_);
+    assert(!isEmpty());
     return elements[nextPosition(front_)];
 }
 
 template <typename queueElementType>
 bool Queue<queueElementType>::isEmpty() const {
-    return bool(front_ == last_);
+    return bool(numberOfElement_ == 0);
+//    return bool(front_ == last_);
+}
+
+template <typename queueElementType>
+bool Queue<queueElementType>::isFull() const {
+    return bool(numberOfElement_ == maxQueue);
+    return bool (nextPosition(last_) == front_);
 }
 
 

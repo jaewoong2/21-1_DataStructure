@@ -46,11 +46,12 @@ int Table<keyType, dataType>::probe(const int &pos) {
 
 template <class keyType, class dataType>
 bool Table<keyType, dataType>::search(int &pos, const keyType &target) {
-    for(; TableArray[pos].slotStatus != Empty ; pos = probe(pos)); // InUse or Deleted 인 곳을 찾을 때 까지 pos 값을 올림
+    for(; TableArray[pos].slotStatus != Empty ; pos = probe(pos)) {
     // pos 값을 올렸을 때, InUse 이고 key 값이 찾고자 하는것과 같으면 true
-    if(TableArray[pos].slotStatus == InUse && TableArray[pos].key == target) {
-        return true;
-    }
+        if(TableArray[pos].slotStatus == InUse && TableArray[pos].key == target) {
+            return true;
+        }
+    } // InUse or Deleted 인 곳을 찾을 때 까지 pos 값을 올림
     return false;
 }
 
@@ -83,8 +84,8 @@ void Table<keyType, dataType>::insert(const keyType &key, const dataType &data) 
 template <class keyType, class dataType>
 void Table<keyType, dataType>::deleteKey(const keyType &key) {
     int pos = hash(key);
-    if (search(pos, key)) {
-        TableArray[pos].slotStauts = Deleted;
+    if (search(pos, key) == true) {
+        TableArray[pos].slotStatus = Deleted;
         entries -= 1;
     }
 }
@@ -105,10 +106,14 @@ void Table<keyType, dataType>::dump() {
         std::cout << i << '\t';
         switch (TableArray[i].slotStatus) {
             case InUse:
-                std::cout << "In Use \t" << TableArray[i].key << "\n";
+                std::cout << "In Use key \t" << TableArray[i].key << "\n";
+                std::cout << i << '\t';
+                std::cout << "In Use data \t" << TableArray[i].data << "\n";
                 break;
             case Deleted:
-                std::cout << "Deleted \t" << TableArray[i].key << "\n";
+                std::cout << "In Use key \t" << TableArray[i].key << "\n";
+                std::cout << i << '\t';
+                std::cout << "Deleted data \t" << TableArray[i].data << "\n";
                 break;
             case Empty:
                 std::cout << "Empty \t"<< "\n";
@@ -116,6 +121,7 @@ void Table<keyType, dataType>::dump() {
             default:
                 break;
         }
+        std::cout << "---------------------------------" << '\n';
     }
     std::cout << "Entries = " << entries << "\n\n";
 }

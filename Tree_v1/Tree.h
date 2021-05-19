@@ -11,14 +11,15 @@ class Tree {
 public:
     Tree(): nullTree(true), leftTree(nullptr), rightTree(nullptr) {};
     Tree(const Tree *anotherTree);
-    bool isEmpty() const { return nullTree; };
-    elementType getData() const { assert(!isEmpty()); return treeData; };
-    void insert(const elementType &data);
+    bool isEmpty() const { return this->nullTree; };
+    elementType getData() const { assert(!isEmpty()); return this->treeData; };
+    virtual void insert(const elementType &data);
     Tree* left();
     Tree* right();
     void makeLeft(Tree* anotherTree);
     void makeRight(Tree* anotherTree);
-private:
+
+protected:
     bool nullTree;
     elementType treeData;
     Tree* leftTree;
@@ -27,50 +28,50 @@ private:
 
 template <class elementType>
 Tree<elementType>::Tree(const Tree<elementType> *anotherTree) {
-    nullTree = anotherTree->isEmpty();
-    treeData = anotherTree->getData();
-    leftTree = anotherTree->left();
-    rightTree = anotherTree->right();
+    this->nullTree = anotherTree->isEmpty();
+    this->treeData = anotherTree->getData();
+    this->leftTree = anotherTree->left();
+    this->rightTree = anotherTree->right();
 }
 
 template <class elementType>
 void Tree<elementType>::insert(const elementType &data) {
-    treeData = data;
-    if(nullTree) {
-        nullTree = false;
-        leftTree = new Tree;
-        rightTree = new Tree;
+    this->treeData = data;
+    if(this->nullTree) {
+        this->nullTree = false;
+        this->leftTree = new Tree;
+        this->rightTree = new Tree;
     }
 }
 
 template <class elementType>
 Tree<elementType>* Tree<elementType>::left() {
-    assert(!isEmpty());
-    return leftTree;
+    assert(!this->isEmpty());
+    return this->leftTree;
 }
 
 template <class elementType>
 Tree<elementType>* Tree<elementType>::right() {
-    assert(!isEmpty());
-    return rightTree;
+    assert(!this->isEmpty());
+    return this->rightTree;
 }
 
 template <class elementType>
 void Tree<elementType>::makeLeft(Tree* anotherTree) {
-    Tree* leftT = left();
-    assert(!isEmpty());
+    Tree* leftT = this->left();
+    assert(!this->isEmpty());
     assert(leftT->isEmpty());
     delete leftT;
-    leftTree = anotherTree;
+    this->leftTree = anotherTree;
 }
 
 template <class elementType>
 void Tree<elementType>::makeRight(Tree* anotherTree) {
-    Tree* rightT = right();
-    assert(!isEmpty());
+    Tree* rightT = this->right();
+    assert(!this->isEmpty());
     assert(rightT->isEmpty());
     delete right();
-    rightTree = anotherTree;
+    this->rightTree = anotherTree;
 }
 
 

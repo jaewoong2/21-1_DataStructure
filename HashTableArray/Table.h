@@ -1,6 +1,7 @@
 //
-// Created by 82109 on 2021-05-08.
+// 20160569 임재웅 자료구조 Table.h
 //
+
 #ifndef HASHTABLEARRAY_TABLE_H
 #define HASHTABLEARRAY_TABLE_H
 #include <cassert>
@@ -12,9 +13,13 @@ template <class keyType, class dataType>
 class Table {
 public:
     Table();
+    // data 를 key 에 해당하는 hash index 번호에 저장 해주는 함수
     void insert(const keyType &key, const dataType &data);
+    // 매개변수 data 에 key 값에 존재하는 data 를 넣어주는 넣어주는 함수
     bool lookup(const keyType &key, dataType &data);
+    // key 값을 지운다. (key 값에 해당하는 hash index 번호 에 존재하는 slot status 를 Deleted 처리해준다.)
     void deleteKey(const keyType &key);
+    // Table 을 보여준다.
     void dump();
 
 private:
@@ -25,9 +30,13 @@ private:
         dataType data;
     };
     slot TableArray[MAX_TABLE];
+    // number of entry
     int entries;
+    // key to hash function
     int hash(const keyType &key);
+    // pos < MAX_TABLE ? pos = pos + 1 : 0;
     int probe(const int &pos);
+    // target 의 key 값을 찾는다. 매개변수로 들어온 pos 는 hash 값에 해당하는 index 로 바뀌어져 있다.
     bool search(int &pos, const keyType &target);
 };
 
@@ -38,7 +47,7 @@ int Table<keyType, dataType>::hash(const keyType &key) {
 
 template <class keyType, class dataType>
 int Table<keyType, dataType>::probe(const int &pos) {
-    if(pos < MAX_TABLE -1) {
+    if(pos < MAX_TABLE - 1) {
         return pos + 1;
     }
     return 0;

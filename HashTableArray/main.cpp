@@ -20,6 +20,7 @@ int main() {
     table.insert(20200425, 20200425);
     table.insert(20200426, 20200426);
     table.insert(20200427, 20200427);
+    table.dump();
 
     table.deleteKey(20200424);
     table.deleteKey(20200423);

@@ -1,6 +1,7 @@
 //
-// Created by 82109 on 2021-05-08.
+// 20160569 임재웅 자료구조 Hash Table p.51 Table.h
 //
+
 #ifndef HASHTABLEARRAY_TABLE_H
 #define HASHTABLEARRAY_TABLE_H
 #include <cassert>
